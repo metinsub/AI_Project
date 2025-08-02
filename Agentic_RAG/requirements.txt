@@ -3,18 +3,24 @@
 fastapi==0.104.1
 uvicorn[standard]==0.24.0
 
-# LangChain für RAG und Agents
-langchain==0.1.0
-langchain-openai==0.0.5
-langchain-community==0.0.12
+# LangChain für RAG und Agents - Flexible Versionen  
+langchain>=0.3.0
+langchain-openai>=0.2.0
+langchain-community>=0.3.0
+langchain-text-splitters>=0.3.0
 
-# Vector Database
-psycopg2-binary==2.9.9
-pgvector==0.2.4
+# Vector Database - FAISS für effiziente Vector-Suche
+faiss-cpu==1.7.4
+
+# Embeddings Model
+sentence-transformers==2.2.2
 
 # Document Processing
-pypdf2==3.0.1
+PyMuPDF>=1.25.3
 python-multipart==0.0.6
+
+# Optional: PostgreSQL für Metadaten (kann später hinzugefügt werden)
+# psycopg2-binary==2.9.9
 
 # OpenAI API
 openai>=1.6.1,<2.0.0
@@ -23,7 +29,10 @@ openai>=1.6.1,<2.0.0
 python-dotenv==1.0.0
 
 # Data Models
-pydantic==2.5.2
+pydantic>=2.7.4
 
 # HTTP Client
-httpx==0.25.2 
+httpx==0.25.2
+
+# Utilities
+numpy>=1.24.0 

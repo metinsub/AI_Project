@@ -4,9 +4,10 @@ Projekt-Blueprint: Agentic RAG Business Assistant
     Wir bauen eine REST-basierte AI-Anwendung, die Dokumente (z. B. PDF-Berichte, interne Knowledge-Docs)
     verarbeiten und intelligente Antworten auf Fragen geben kann.
     Das System kombiniert Retrieval-Augmented Generation (RAG) mit Agentic AI, wodurch ein LLM
-    selbstständig Tools (z. B. Vektor-Suche oder externe APIs) nutzen kann, um Anfragen zu beantworten. Die
-    REST-API wird mit FastAPI entwickelt, LangChain dient als Framework für RAG und Agenten, und
-    PostgreSQL mit pgvector wird für die Vektor-Suche verwendet. Alles wird mittels Docker containerisiert.
+    selbstständig zwischen verschiedenen Tools entscheidet: Dokumentensuche (RAG), Web-Suche, 
+    Berechnungen, etc. Die REST-API wird mit FastAPI entwickelt, LangChain dient als Framework für 
+    RAG und Agenten, und FAISS wird für effiziente In-Memory Vektor-Suche verwendet. 
+    Alles wird mittels Docker containerisiert.
 
 2. Projektziele
 
@@ -24,24 +25,31 @@ Projekt-Blueprint: Agentic RAG Business Assistant
     Software & Tools:
     - Python 3.11+
     - FastAPI (REST-API)
-    - LangChain (für RAG, Tools, Agenten)
-    - PostgreSQL + pgvector (Vektor-Datenbank)
+    - LangChain + LangChain Agents (für RAG, Tools, Agenten)
+    - FAISS (effiziente In-Memory Vektor-Suche)
+    - sentence-transformers (lokale Embeddings)
     - Docker & docker-compose (Containerisierung)
-    - OpenAI API (LLM & Embeddings)
+    - OpenAI API (LLM für Agent Reasoning)
+    - Tavily API (Web Search Tool - optional)
     Infrastruktur:
-    - 2 Container: API (FastAPI + LangChain) und DB (Postgres + pgvector)
+    - 1 Haupt-Container: API (FastAPI + LangChain + FAISS)
+    - Optional: PostgreSQL Container (nur für Metadaten)
     - Lokale Entwicklungsumgebung (VSCode oder PyCharm)
     - API-Testtool wie Postman oder cURL
     Testdaten:
     - Beispiel-PDFs (Business-Report oder technische Dokumentation)
 
-4. Architekturüberblick
-    Das System folgt einem modularen Aufbau:
-    [User/Frontend] -> [FastAPI Backend] -> [LLM via OpenAI API]
-    -> [Postgres + pgvector]
-    -> [LangChain Agent Tools]
-    FastAPI dient als REST-Schnittstelle, LangChain übernimmt Agenten- und RAG-Logik, und Postgres mit
-    pgvector speichert Embeddings und Dokumenten-Chunks.
+4. Architekturüberblick - Agentic RAG System
+    Das System folgt einem intelligenten Agenten-Aufbau:
+    
+    [User Query] -> [FastAPI Backend] -> [LangChain Agent] -> Tool-Auswahl:
+                                            ├── RAG Tool (FAISS Vector Search)
+                                            ├── Web Search Tool (Tavily API)
+                                            ├── Calculator Tool
+                                            └── Custom Business Tools
+    
+    Der Agent (OpenAI Function Calling) entscheidet intelligent, welche Tools für welche 
+    Anfrage optimal sind und kombiniert die Ergebnisse zu einer kohärenten Antwort.
     5. Schritt-für-Schritt-Plan
     Phase 1: Planung & Setup
     - Projektstruktur festlegen (Ordner, Module, Dockerfiles).
@@ -50,18 +58,19 @@ Projekt-Blueprint: Agentic RAG Business Assistant
     Phase 2: Backend-Basis (FastAPI)
     - FastAPI-Server einrichten.
     - Endpunkte definieren: /health, /ingest, /query.
-    Phase 3: Vektor-Datenbank
-    - Postgres mit pgvector vorbereiten.
-    - Schema für Dokumente und Embeddings planen.
-    - Embeddings mit OpenAI generieren und speichern.
-    Phase 4: RAG-Implementierung
-    - Chunking-Logik planen (z. B. 1000 Zeichen pro Chunk).
-    - Retriever implementieren (Vektor-Suche nach Top-K Chunks).
-    - LLM-Anbindung (OpenAI API).
-    Phase 5: Agentic Layer
-    - Agent-Workflow definieren (Toolauswahl zwischen RAG und API).
-    - Tools definieren: vector_search, external_api.
-    - LangChain-Agent einbinden.
+    Phase 3: Vector Service (FAISS)
+    - FAISS In-Memory Vector Store implementieren.
+    - LangChain RecursiveCharacterTextSplitter für intelligentes Chunking.
+    - sentence-transformers für lokale Embeddings.
+    Phase 4: RAG-Tools Implementation  
+    - @tool decorator für RAG-Funktionalität.
+    - FAISS Similarity Search als Tool.
+    - Retriever mit Top-K Chunks und Similarity Threshold.
+    Phase 5: Agentic Layer (Kern-Feature)
+    - LangChain Agent mit OpenAI Function Calling.
+    - Multiple Tools: RAG, Web Search, Calculator.
+    - Agent Service für intelligente Tool-Auswahl.
+    - /agent Endpoint für agentic Queries.
     Phase 6: Testing & Monitoring
     - Testfälle für Dokumente und Fragen.
     - Optional: Integration von Langfuse (Monitoring).
