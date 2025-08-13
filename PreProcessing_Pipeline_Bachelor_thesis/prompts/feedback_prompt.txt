@@ -1,0 +1,13 @@
+Important:
+You have received feedback based on a previous rephrasing attempt:
+
+{feedback}
+
+Previous Rephrased Version (for your reference):
+{previous_rephrased_text}
+
+Original Text:
+{input_text}
+
+Please correct the rephrased version using the feedback, while preserving all accurate and correct information already present. Focus only on addressing the issues highlighted in the feedback — avoid unnecessary changes to content that is already correct and complete.
+

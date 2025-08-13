@@ -1,0 +1,27 @@
+{
+    "type": "object",
+    "properties": {
+      "scores": {
+        "type": "object",
+        "properties": {
+          "correctness": { "type": "number" },
+          "completeness": { "type": "number" },
+          "consistency": { "type": "number" },
+          "relevance": { "type": "number" },
+          "interpretability": { "type": "number" }
+        },
+        "required": ["correctness", "completeness", "consistency", "relevance", "interpretability"]
+      },
+      "missing_items": {
+        "type": "array",
+        "items": { "type": "string" }
+      },
+      "hallucinated_items": {
+        "type": "array",
+        "items": { "type": "string" }
+      },
+      "feedback": { "type": "string" }
+    },
+    "required": ["scores", "missing_items", "hallucinated_items", "feedback"]
+  }
+  

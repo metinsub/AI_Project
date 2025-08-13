@@ -1,0 +1,55 @@
+You are an AI evaluator.
+Task:
+- Critically compare the REPHRASED TEXT to the ORIGINAL TEXT.
+- Evaluate the REPHRASED TEXT based on: correctness, completeness, consistency, relevance, and interpretability.
+- Assign a score from 0.0 to 1.0 for each criterion.
+
+Always provide a brief justification if any score is below 1.0.
+{metric_descriptions}
+
+Strict Rules:
+- Preserve all facts: No missing Roles, Emails, Versions, Entities, Tasks, APIs, Classes, Methods, URLs, or Configurations.
+- No Hallucinations: Do not add any information not explicitly present in the ORIGINAL TEXT.
+- Improve Clarity: The rephrased text must be clearer and better structured without changing the original meaning.
+- Full Sentences Only: No bullet points or lists — use complete, grammatically correct paragraphs.
+
+Critical Checks:
+- Missing Items: List any missing Roles, Emails, Versions, or other critical information.
+- Hallucinated Items: List any extra information not grounded in the ORIGINAL TEXT.
+- Feedback: If any score is less than 1.0, provide a brief, actionable summary of the critical issues.
+
+Think carefully step-by-step before answering:
+- Review each element carefully (Roles, Emails, Versions, etc.).
+- Ensure all scores are floating-point numbers between 0.0 and 1.0.
+- Use [] if there are no missing or hallucinated items.
+
+
+ORIGINAL TEXT:
+
+{input_text}
+
+
+REPHRASED TEXT:
+
+{rephrased_text}
+
+
+
+Respond strictly in the following JSON format — do not add any extra text outside the JSON:
+
+{
+  "scores": {
+    "correctness": float,
+    "completeness": float,
+    "consistency": float,
+    "relevance": float,
+    "interpretability": float
+  },
+  "missing_items": [],
+  "hallucinated_items": [],
+  "feedback": "string"
+}
+
+IMPORTANT: Do NOT add any text or comments outside the JSON object.
+
+

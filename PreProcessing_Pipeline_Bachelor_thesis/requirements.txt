@@ -1,0 +1,20 @@
+# PDF-Verarbeitung
+PyMuPDF>=1.25.3
+
+# Datenverarbeitung
+numpy>=1.26.4
+
+# LLM & Tokenizer
+langchain>=0.3.20
+transformers>=4.48.3
+
+# API & Utilities
+requests>=2.32.3
+python-dotenv>=1.0.1
+tqdm>=4.67.1
+
+# Logging
+colorama >=0.4.6
+
+# Validierung
+pydantic >=2.10.6

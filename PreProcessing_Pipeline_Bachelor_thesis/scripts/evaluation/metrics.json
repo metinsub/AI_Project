@@ -1,0 +1,30 @@
+{
+    "metrics": [
+      {
+        "name": "correctness",
+        "description": "Are all facts, names, roles, version, entities, and relationships exactly preserved and factually accurate compared to the original text, with no errors or distortions?",
+        "threshold": 0.9
+      },
+      {
+        "name": "completeness",
+        "description": "Does the rephrased text capture and preserve all critical information, entities, roles, and tasks present in the original input without omission?",
+        "threshold": 0.9
+      },
+      {
+        "name": "consistency",
+        "description": "Is the rephrased text internally coherent, with no contradictions, ambiguities, or logical inconsistencies compared to the original content?",
+        "threshold": 0.9
+      },
+      {
+        "name": "relevance",
+        "description": "Is all included information strictly grounded in the original input, with no hallucinated, fabricated, or unrelated content introduced?",
+        "threshold": 0.9
+      },
+      {
+        "name": "interpretability",
+        "description": "Is the rephrased text clear, logically structured, and easy to read and understand, without altering the meaning or introducing complexity?",
+        "threshold": 0.9
+      }
+    ]
+  }
+  
